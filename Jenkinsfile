@@ -37,7 +37,7 @@ pipeline{
        }
        stage('Deploy'){
            steps{
-               sh 'sudo cp /var/lib/jenkins/workspace/devops_demo/target/addressbook.war /opt/apache-tomcat-9.0.80/webapps/'
+               sh 'cp /var/lib/jenkins/workspace/devops_demo/target/addressbook.war /opt/apache-tomcat-9.0.80/webapps/'
            }
        }
        }
