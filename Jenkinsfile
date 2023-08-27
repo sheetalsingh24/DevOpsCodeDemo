@@ -1,50 +1,44 @@
-
 pipeline{
+    
     tools{
-       
         maven 'mymaven'
     }
-	agent any
-      stages{
-           stage('Checkout the code'){
-	    
-               steps{
-		 echo 'cloning the repo'
-                 git 'https://github.com/Sonal0409/DevOpsClassCodes.git'
-              }
-          }
-          stage('Compile'){
-             
-              steps{
-                  echo 'complie the code again..'
-                  sh 'mvn compile'
-	      }
-          }
-          stage('CodeReview'){
-		  
-              steps{
-		    
-		  echo 'codeReview'
-                  sh 'mvn pmd:pmd'
-              }
-          }
-           stage('UnitTest'){
-		  
-              steps{
-	         
-                  sh 'mvn test'
-              }
-          
-          }
-        
-          stage('Package'){
-		  
-              steps{
-		  
-                  sh 'mvn package'
-              }
-          }
-	     
-          
-      }
+   // in agent any = any available server 
+    agent any
+   stages{
+       stage('Clone a Repo'){
+           steps{
+               git 'https://github.com/sheetalsingh24/DevOpsCodeDemo.git'
+           }
+       }
+       
+       stage('Compile the code'){
+           steps{
+               sh 'mvn compile'
+           }
+       }
+       
+       stage('CodeReview'){
+           steps{
+               sh 'mvn pmd:pmd'
+           }
+       }
+       
+       stage('Unit Test'){
+           steps{
+               sh 'mvn test'
+           }
+       }
+       
+       stage('Package'){
+           steps{
+               sh 'mvn package'
+           }
+       }
+       stage('Deploy'){
+           steps{
+               sh 'cp /var/lib/jenkins/workspace/devops_demo/target/addressbook.war /opt/apache-tomcat-9.0.80/webapps/'
+           }
+       }
+       }
 }
